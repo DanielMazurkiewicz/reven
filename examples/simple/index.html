@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Reven framework usage example</title>
+    <script src="../../dist/reven.js"></script>
+</head>
+<body>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+    <template id="main-page">
+        <div class='container'>
+            <div id='titleElement'></div>
+            <div class='header'><slot name='header'></slot></div>
+            <div class='content'><slot></slot></div>
+            <div class='footer'><slot name='footer'></slot></div>
+            <div class='menu'><slot name='menu'></slot></div>
+        </div>
+
+        <script>
+            component({
+                attributes: {
+                    title: (newValue, oldValue) => {
+                        titleElement.innerText = newValue;
+                        if (newValue!==oldValue) emit.titleChange();
+                        return newValue;
+                    },
+                    'text-color': (newValue, oldValue) => {
+                        titleElement.style.color = newValue;
+                    },
+                },
+                lifecycle: {
+                    init: () => {console.log('init')},
+                    append: () => {console.log('append')},
+                    remove: () => {console.log('remove')},
+                    move: () => {console.log('move')}
+                },
+                emits: {
+                    titleChange: true
+                }
+            })
+        </script>
+        <style>
+            .container {
+                width: 100vw;
+                height: 100vh;
+                display: grid;
+                grid-template-areas:    "header header"
+                                        "menu title"
+                                        "menu content"
+                                        "footer footer";
+            }
+            .container > * {
+                border: 1px solid black;
+            }
+
+            .content {
+                grid-area: content;
+            }
+            #titleElement {
+                grid-area: title;
+            }
+            .header {
+                grid-area: header;
+                color: white;
+                background-color: darkblue;
+            }
+            .footer {
+                grid-area: footer;
+            }
+            .menu {
+                grid-area: menu;
+            }
+        </style>
+    </template>
+
+    <template id="hello-world">
+        Hello from another comonent
+    </template>
+
+    <template id="counter-component">
+        Counter value:<div id='counterElement'>0</div>
+        <button id='btnIncrement'>+1</button>
+        <script>
+            component({
+                lifecycle: {
+                    init: () => {
+                        let counter = 0;
+                    }
+                },
+                listen: [
+                    [{btnIncrement: 'click'}, ()=>{ 
+                        counter++;
+                        counterElement.innerText = counter;
+                    }]
+                ]
+            })
+        </script>
+    </template>
+
+    <template id='test-app'>
+        <main-page title="This is set by attribute 'title'" text-color="red">
+            <div slot='footer'>This is footer</div>
+            <div slot='header'>This is header</div>
+            This is content
+            <hello-world></hello-world>
+            <div slot='menu'>This is menu</div>
+            <counter-component></counter-component>
+        </main-page>
+    </template>
+
+
+    <script>
+        reven('test-app');
+    </script>
+</body>
+</html>
+
