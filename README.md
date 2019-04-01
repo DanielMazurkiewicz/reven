@@ -5,6 +5,11 @@ Small, powerfull fast and minimalistic front end web framework - less than 2kb g
 It transpiles given in component method object into native javascript code so it is very fast and almost no execution overhead on framework itself.
 
 ## Usage
+Framework defines two methods on HTMLElement class for accessing attributes (attribSet, attribGet), and you should use them instead of native ones (setAttribute, getAttribute) when accessing programatically attributes.
+```javascript
+    const element = document.createElement('div');
+    element.attribSet('class', 'someStyle')
+```
 
 Every `template` element in HTML document containing attribute 'id' should hold component description.
 ```html
