@@ -78,12 +78,14 @@
         </style>
     </template>
 
-    <template id="hello-world">
-        Hello from another comonent
+    <template id="hello-component">
+        <div>
+            Hello from another comonent
+        </div>
     </template>
 
     <template id="counter-component">
-        Counter value:<div id='counterElement'>0</div>
+        <div>Counter value:<span id='counterElement'>0</span></div>
         <button id='btnIncrement'>+1</button>
         <script>
             component({
@@ -107,7 +109,7 @@
             <div slot='footer'>This is footer</div>
             <div slot='header'>This is header</div>
             This is content
-            <hello-world></hello-world>
+            <hello-component></hello-component>
             <div slot='menu'>This is menu</div>
             <counter-component></counter-component>
         </main-page>
