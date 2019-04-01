@@ -1,14 +1,33 @@
 # reven
-Small, powerfull fast and minimalistic front end web framework - less than 2kb gzipped
+Small, powerfull fast and minimalistic front end web framework - less than 2kB gzipped
 
 ## How it works
 It transpiles given in component method object into native javascript code so it is very fast and almost no execution overhead on framework itself.
 
+## Goals
+
+* Keep it smaller than 2kB
+* Not overbloat it with features
+* Keep it simple to try, learn and understand
+* [TODO] Make separate version for developers with all possible debugging capabilities (no limit on size)
+* [TODO] Make Reven bundler and minifier
+
 ## Usage
-Framework defines two methods on HTMLElement class for accessing attributes (attribSet, attribGet), and you should use them instead of native ones (setAttribute, getAttribute) when accessing programatically attributes.
+Framework introduces two methods on HTMLElement class for accessing attributes (attribSet, attribGet) and you should use them instead of native ones (setAttribute, getAttribute) when accessing programatically attributes.
 ```javascript
     const element = document.createElement('div');
-    element.attribSet('class', 'someStyle')
+    element.attribSet('class', 'someStyle') // sets single attribute
+    element.attribSet({ // setts multiple attributes
+        class: 'someStyle',
+        name: 'someElement'
+    })
+    const class = element.attribGet('class'); //gets single attribute
+    const attributes = element.attribGet({ //gats given attributes
+        class: true,
+        name: true
+    })
+    const allAttributes = element.attribget(); // gets all defined in component attributes
+
 ```
 
 Every `template` element in HTML document containing attribute 'id' should hold component description.
@@ -165,3 +184,7 @@ Defines events that component emits, these events can be used then by executing 
         }
     }
 ```
+
+# Notes
+
+Feel free to drop a line of code, post a bug or feature request and so on.
