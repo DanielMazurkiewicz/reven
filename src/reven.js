@@ -15,7 +15,6 @@ Element.prototype.attribSet = function(nameOrObject, value) {
 Element.prototype.attribGet = function(nameOrObject) {
     if (typeof nameOrObject === 'string') {
         const a=this.___a[nameOrObject];
-        console.log(this.___a)
         return a?a.g(a.v):this.getAttribute(nameOrObject);
     } else {
         let result = {};
@@ -165,7 +164,6 @@ function createHTMLElementClassString({returns, className = 'ThisClass', inherit
     }
 
     result += '};'; // end of class
-    console.log(result)
     return result;
 }
 
