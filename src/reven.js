@@ -14,12 +14,14 @@ Element.prototype.attribSet = function(nameOrObject, value) {
 }
 Element.prototype.attribGet = function(nameOrObject) {
     if (typeof nameOrObject === 'string') {
-        const a=this.___a[nameOrObject];return a?a.v:this.getAttribute(nameOrObject);
+        const a=this.___a[nameOrObject];
+        console.log(this.___a)
+        return a?a.g(a.v):this.getAttribute(nameOrObject);
     } else {
         let result = {};
         nameOrObject = nameOrObject || this.___a;
         for (let name in nameOrObject) {
-            const a=this.___a[name];result[name] = a?a.v:this.getAttribute(name);
+            const a=this.___a[name];result[name] = a?a.g(a.v):this.getAttribute(name);
         }
         return result;
     }
@@ -145,11 +147,9 @@ function createHTMLElementClassString({returns, className = 'ThisClass', inherit
                     result += `{g:v=>v,s:${attribute.toString()}${isString?",is:1":""}}`; //is - is string
                 } else {
                     result += `{${
-                        [
-                            attribute.get ? `g:${attribute.get.toString()},` : `g:v=>v`,
-                            attribute.set ? `s:${attribute.set.toString()},` : `s:()=>{}`,
-                            isString ? 'is:1' : ''
-                        ].filter(e=>e).join[',']
+                            attribute.get ? `g:${attribute.get.toString()},` : `g:v=>v,` +
+                            attribute.set ? `s:${attribute.set.toString()},` : `s:()=>{}` +
+                            isString ? ',is:1' : ''
                     }}`;
                 }
                 return result + (attribute.init ? `})()` : '')
@@ -165,6 +165,7 @@ function createHTMLElementClassString({returns, className = 'ThisClass', inherit
     }
 
     result += '};'; // end of class
+    console.log(result)
     return result;
 }
 

@@ -26,7 +26,7 @@ Framework introduces two methods on HTMLElement class for accessing attributes (
         class: true,
         name: true
     })
-    const allAttributes = element.attribget(); // gets all defined in component attributes
+    const allAttributes = element.attribGet(); // gets all defined in component attributes
 
 ```
 
