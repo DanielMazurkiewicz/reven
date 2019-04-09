@@ -5,7 +5,7 @@
 
 Element.prototype.attribSet = function(nameOrObject, value) {
     if (typeof nameOrObject === 'string') {
-        const a=this.___a[nameOrObject];a?a.v=a.s(value,a.v):this.setAttribute(nameOrObject, value);
+        const a=this.___a&&this.___a[nameOrObject];a?a.v=a.s(value,a.v):this.setAttribute(nameOrObject, value);
     } else {
         for (let name in nameOrObject) {
             const a=this.___a[name];a?a.v=a.s(nameOrObject[name],a.v):this.setAttribute(nameOrObject[name], value);
@@ -14,13 +14,13 @@ Element.prototype.attribSet = function(nameOrObject, value) {
 }
 Element.prototype.attribGet = function(nameOrObject) {
     if (typeof nameOrObject === 'string') {
-        const a=this.___a[nameOrObject];
+        const a=this.___a&&this.___a[nameOrObject];
         return a?a.g(a.v):this.getAttribute(nameOrObject);
     } else {
         let result = {};
         nameOrObject = nameOrObject || this.___a;
         for (let name in nameOrObject) {
-            const a=this.___a[name];result[name] = a?a.g(a.v):this.getAttribute(name);
+            const a=this.___a&&this.___a[name];result[name] = a?a.g(a.v):this.getAttribute(name);
         }
         return result;
     }
