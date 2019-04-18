@@ -146,9 +146,9 @@ function createHTMLElementClassString({returns, className = 'ThisClass', inherit
                     result += `{g:v=>v,s:${attribute.toString()}${isString?",is:1":""}}`; //is - is string
                 } else {
                     result += `{${
-                            attribute.get ? `g:${attribute.get.toString()},` : `g:v=>v,` +
-                            attribute.set ? `s:${attribute.set.toString()},` : `s:()=>{}` +
-                            isString ? ',is:1' : ''
+                            (attribute.get ? `g:${attribute.get.toString()},` : `g:v=>v,`) +
+                            (attribute.set ? `s:${attribute.set.toString()}` : `s:()=>{}`) +
+                            (isString ? ',is:1' : '')
                     }}`;
                 }
                 return result + (attribute.init ? `})()` : '')
